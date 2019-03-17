@@ -1,8 +1,14 @@
 package org.verizhenko.tacocloud.tacos.data;
 
+import org.springframework.data.repository.CrudRepository;
 import org.verizhenko.tacocloud.tacos.Order;
 
-public interface OrderRepository {
+import java.util.Date;
+import java.util.List;
 
-    Order save(Order order);
+public interface OrderRepository extends CrudRepository<Order, Long> {
+
+    List<Order> findByZip(String zip);
+
+    List<Order> readOrdersByZipAndPlacedAtBetween(String zip, Date startDate, Date endDate);
 }
