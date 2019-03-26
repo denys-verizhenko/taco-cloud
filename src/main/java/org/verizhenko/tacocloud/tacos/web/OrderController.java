@@ -2,6 +2,8 @@ package org.verizhenko.tacocloud.tacos.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.verizhenko.tacocloud.tacos.Order;
+import org.verizhenko.tacocloud.tacos.User;
 import org.verizhenko.tacocloud.tacos.data.OrderRepository;
+import org.verizhenko.tacocloud.tacos.data.UserRepository;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/orders")
@@ -33,11 +38,13 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus) {
+    public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus,
+                               @AuthenticationPrincipal User user) {
         if (errors.hasErrors()) {
             return "orderForm";
         }
 
+        order.setUser(user);
         orderRepo.save(order);
         sessionStatus.setComplete();
         return "redirect:/";
