@@ -1,11 +1,8 @@
 package org.verizhenko.tacocloud.tacos.web;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +12,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.verizhenko.tacocloud.tacos.Order;
 import org.verizhenko.tacocloud.tacos.User;
 import org.verizhenko.tacocloud.tacos.data.OrderRepository;
-import org.verizhenko.tacocloud.tacos.data.UserRepository;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/orders")
